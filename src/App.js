@@ -17,6 +17,7 @@ const tasks = [
     inModification: false,
     checked: false,
     buttonCancel: false,
+    defaulValue: "",
   },
   {
     id: 2,
@@ -24,6 +25,7 @@ const tasks = [
     inModification: false,
     checked: true,
     buttonCancel: false,
+    defaulValue: "",
   },
   {
     id: 3,
@@ -31,6 +33,7 @@ const tasks = [
     inModification: false,
     checked: false,
     buttonCancel: false,
+    defaulValue: "",
   },
   {
     id: 4,
@@ -38,6 +41,7 @@ const tasks = [
     inModification: false,
     checked: false,
     buttonCancel: false,
+    defaulValue: "",
   },
   {
     id: 5,
@@ -45,6 +49,7 @@ const tasks = [
     inModification: true,
     checked: true,
     buttonCancel: false,
+    defaulValue: "",
   },
   {
     id: 6,
@@ -52,6 +57,7 @@ const tasks = [
     inModification: false,
     checked: false,
     buttonCancel: false,
+    defaulValue: "",
   },
   {
     id: 7,
@@ -59,28 +65,27 @@ const tasks = [
     inModification: true,
     checked: false,
     buttonCancel: false,
+    defaulValue: "",
   },
 ];
 
 function ListItems() {
   const [mList, setmList] = useState([]);
   const [showButt, setshowButton] = useState([]);
-  const [change, setChange] = useState([]);
+  const [change, setChange] = useState([""]);
   const [defaul_value, setDefault_value] = useState([]);
 
   const handleChange = (e) => {
-    setChange(
-      {
+    if (e.target.name === "form0") {
+      setChange({
         ...change,
         [e.target.name]: e.target.value,
-      },
-      console.log(e.target.value)
-    );
+      });
+      console.log(e.target.name, "Deve decir form0");
+    }
   };
 
-  const ref = useRef(null);
-  console.log(ref.current.id);
-
+  //const ref = useRef(null);
   console.log(mList);
 
   return tasks.map((task, index) => {
@@ -91,15 +96,19 @@ function ListItems() {
     showButt.push(task.buttonCancel);
     console.log(mList);
 
+    if (index === 0 && change.form0 === "") {
+    }
+
     const label = <span className="font-weight-bold">{task.title}</span>;
     const title = (editing) => {
+      console.log(task.defaulValue);
       return editing ? (
         <input
           className="form-control"
-          name={`form`}
+          name={`form${index}`}
           onChange={handleChange}
-          defaultValue={defaul_value[index]}
-          ref={ref}
+          defaultValue={task.defaulValue}
+          //ref={ref}
           id={`form${index}`}
         />
       ) : (
@@ -118,12 +127,13 @@ function ListItems() {
           onClick={() => {
             console.log(`${change.form}${index}`);
             let contForm = change.form;
-            defaul_value.push(contForm);
+            tasks[0].defaulValue = `${change.form0}`;
+            /* defaul_value.push(contForm);
             console.log(defaul_value);
-            setDefault_value(defaul_value);
+            setDefault_value(defaul_value); */
 
             //Es necesario cambiar el estado a un objeto vacio para reiniciar el valor de change y poder acceder a el en distintas iteraciones
-            setChange({});
+            //setChange({});
             console.log(contForm);
 
             //Al hacer click en edit muestra el input-text
