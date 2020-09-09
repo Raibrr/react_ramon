@@ -16,7 +16,6 @@ const tasks = [
     title: "Título 1",
     inModification: false,
     checked: false,
-    buttonCancel: false,
     defaulValue: "",
   },
   {
@@ -24,7 +23,6 @@ const tasks = [
     title: "Título 2",
     inModification: false,
     checked: true,
-    buttonCancel: false,
     defaulValue: "",
   },
   {
@@ -32,7 +30,6 @@ const tasks = [
     title: "Título 3",
     inModification: false,
     checked: false,
-    buttonCancel: false,
     defaulValue: "",
   },
   {
@@ -40,7 +37,6 @@ const tasks = [
     title: "Título 4",
     inModification: false,
     checked: false,
-    buttonCancel: false,
     defaulValue: "",
   },
   {
@@ -48,7 +44,6 @@ const tasks = [
     title: "Título 5",
     inModification: true,
     checked: true,
-    buttonCancel: false,
     defaulValue: "",
   },
   {
@@ -56,7 +51,6 @@ const tasks = [
     title: "Título 6",
     inModification: false,
     checked: false,
-    buttonCancel: false,
     defaulValue: "",
   },
   {
@@ -64,44 +58,60 @@ const tasks = [
     title: "Título 7",
     inModification: true,
     checked: false,
-    buttonCancel: false,
     defaulValue: "",
   },
 ];
 
 function ListItems() {
   const [mList, setmList] = useState([]);
-  const [showButt, setshowButton] = useState([]);
   const [change, setChange] = useState([""]);
-  const [defaul_value, setDefault_value] = useState([]);
 
   const handleChange = (e) => {
-    if (e.target.name === "form0") {
+    const doChange = (e) => {
       setChange({
         ...change,
         [e.target.name]: e.target.value,
       });
-      console.log(e.target.name, "Deve decir form0");
+    };
+
+    //Ifs que identifican la procedencia del form, al no contar con "index" como referecia use eso
+    if (e.target.name === "form0") {
+      doChange(e);
+    }
+
+    if (e.target.name === "form1") {
+      doChange(e);
+    }
+
+    if (e.target.name === "form2") {
+      doChange(e);
+    }
+
+    if (e.target.name === "form3") {
+      doChange(e);
+    }
+
+    if (e.target.name === "form4") {
+      doChange(e);
+    }
+
+    if (e.target.name === "form5") {
+      doChange(e);
+    }
+
+    if (e.target.name === "form6") {
+      doChange(e);
     }
   };
-
-  //const ref = useRef(null);
-  console.log(mList);
 
   return tasks.map((task, index) => {
     //If necesario para que no se multiplique infinitamente el array cada que se itera con el 'setChange'
     if (mList.length < 8) {
       mList.push(task.inModification);
     }
-    showButt.push(task.buttonCancel);
-    console.log(mList);
-
-    if (index === 0 && change.form0 === "") {
-    }
 
     const label = <span className="font-weight-bold">{task.title}</span>;
     const title = (editing) => {
-      console.log(task.defaulValue);
       return editing ? (
         <input
           className="form-control"
@@ -125,24 +135,54 @@ function ListItems() {
       return show ? (
         <Button
           onClick={() => {
-            console.log(`${change.form}${index}`);
-            let contForm = change.form;
-            tasks[0].defaulValue = `${change.form0}`;
-            /* defaul_value.push(contForm);
-            console.log(defaul_value);
-            setDefault_value(defaul_value); */
+            //Seccion de ifs necesaria para que no marque "undefined" al momento de NO asignar un valor al input y pulsar Cancel
 
-            //Es necesario cambiar el estado a un objeto vacio para reiniciar el valor de change y poder acceder a el en distintas iteraciones
-            //setChange({});
-            console.log(contForm);
+            //Tambien en esta zona es donde se modifica el valor de tasks para que en el sigiente render (despues de dar click en "Cancel") se muestre el defaultValue de lo que escribio el usuario
+            if (index === 0 && change.form0 === undefined) {
+              console.log("change.form0 esta indefinido");
+            } else {
+              tasks[0].defaulValue = change.form0;
+            }
 
-            //Al hacer click en edit muestra el input-text
+            if (index === 1 && change.form1 === undefined) {
+              console.log("change.form1 esta indefinido");
+            } else {
+              tasks[1].defaulValue = change.form1;
+            }
+
+            if (index === 2 && change.form2 === undefined) {
+              console.log("change.form2 esta indefinido");
+            } else {
+              tasks[2].defaulValue = change.form2;
+            }
+
+            if (index === 3 && change.form3 === undefined) {
+              console.log("change.form3 esta indefinido");
+            } else {
+              tasks[3].defaulValue = change.form3;
+            }
+
+            if (index === 4 && change.form4 === undefined) {
+              console.log("change.form4 esta indefinido");
+            } else {
+              tasks[4].defaulValue = change.form4;
+            }
+
+            if (index === 5 && change.form5 === undefined) {
+              console.log("change.form5 esta indefinido");
+            } else {
+              tasks[5].defaulValue = change.form5;
+            }
+
+            if (index === 6 && change.form6 === undefined) {
+              console.log("change.form6 esta indefinido");
+            } else {
+              tasks[6].defaulValue = change.form6;
+            }
+
+            //Al hacer click en edit muestra el input-text y al hacer click en "Cancel" se oculta el input-texto y se muestra el titulo y check
             tasks[index].inModification = false;
             setmList(mList.slice(index, 0, false));
-
-            //Al hacer click en cancel oculta el boton cancel y el input-text
-            tasks[index].buttonCancel = false;
-            setshowButton(showButt.splice(index, 0, false));
           }}
         >
           Cancel
@@ -159,19 +199,15 @@ function ListItems() {
           <Col xs="2">
             <Button
               onClick={() => {
-                console.log(mList[index]);
                 //NO sé que vrg hice al 100% pero esta madre jala y al momento del click en 'Edit', el input cambia.
                 tasks[index].inModification = true;
                 setmList(mList.slice(index, 0, true));
-
-                tasks[index].buttonCancel = true;
-                setshowButton(showButt.splice(index, 0, true));
               }}
             >
               Edit
             </Button>
           </Col>
-          <Col xs="2">{butt(showButt[index])}</Col>
+          <Col xs="2">{butt(mList[index])}</Col>
         </Row>
       </ListGroup.Item>
     );
