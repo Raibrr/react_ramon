@@ -4,6 +4,8 @@ import "./App.scss";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Persons from "./components/Persons";
 import PersonalTasks from "./components/PersonalTasks";
+import NewUser from "./components/NewUser";
+import axios from "axios";
 
 const tasks = [
   {
@@ -58,13 +60,64 @@ const tasks = [
 ];
 
 const App = () => {
+  const [peopleData, setPeopledata] = useState({
+    data: [""],
+  });
+
+  //Pide la informacion a la API se ejecuta una sola vez (se puede mejorar la forma en que se una axios)
+  useEffect(() => {
+    //Solo estoy pidiendo la info del user 1
+    const fetchData = async () => {
+      try {
+        const responseGet = await axios.get("https://reqres.in/api/users/");
+        console.log(responseGet.data.data[0], "es del get");
+        let dataGet = responseGet.data.data[0];
+        setPeopledata({ data: [dataGet] });
+        //
+      } catch {
+        const error = new Error("Valio vrg el GET");
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  //Envia un POST al API (se puede mejorar la forma en que se una axios)
+  const postData = async (event) => {
+    event.persist();
+    try {
+      const responsePost = await axios.post("https://reqres.in/api/users/", {
+        first_name: "Ramon",
+        email: "example@alv.com",
+      });
+      let data = responsePost.data;
+      setPeopledata({
+        data: [...peopleData.data, data],
+      });
+    } catch {
+      const error = new Error("Valio vrg el POST");
+      console.error(error);
+    }
+    tasks.push({
+      id: 1,
+      title: "Título 8",
+      inModification: false,
+      checked: false,
+      defaulValue: "",
+    });
+  };
+
   let tasksToDo = tasks.length;
-  console.log(tasksToDo);
   return (
     <Router>
       <Switch>
         <Route path="/" exact>
-          <Persons tasksToDo={tasksToDo} />
+          <NewUser emailUser={peopleData.data[0].email} postData={postData} />
+          <Persons
+            tasksToDo={tasksToDo}
+            tasks={tasks}
+            peopleData={peopleData}
+          />
         </Route>
         <Route path="/tasks/:id" exa>
           <PersonalTasks tasks={tasks} />

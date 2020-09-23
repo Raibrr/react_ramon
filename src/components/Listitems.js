@@ -13,20 +13,25 @@ import "../App.scss";
 
 function ListItems(props) {
   const [mList, setmList] = useState([]);
-  const [change, setChange] = useState([]);
+  const [changeInCancel, setChangeInCancel] = useState([]);
   const { register, errors, handleSubmit, setValue } = useForm();
 
   //Funcion que maneja el estado de los valores en el formulario
   //Index representa el "name" del input al que se esta haciendo referencia
   const onSubmit = (data, index) => {
     console.log(data[index], index);
-    console.log(change);
-    setChange({ ...change, [index]: data[index] });
-    console.log(change);
+    console.log(changeInCancel);
+    setChangeInCancel({ ...changeInCancel, [index]: data[index] });
+    console.log(changeInCancel);
+  };
+
+  const changeInpotToFormCheck = (index) => {
+    props.tasks[index].inModification = false;
+    setmList(mList.slice(index, 0, false));
   };
 
   return props.tasks.map((task, index) => {
-    //If necesario para que no se multiplique infinitamente el array cada que se itera con el 'setChange'
+    //If necesario para que no se multiplique infinitamente el array cada que se itera con el 'setChangeInCancel'
     if (mList.length < 8) {
       mList.push(task.inModification);
       console.log(mList);
@@ -40,11 +45,13 @@ function ListItems(props) {
             className="form-control"
             name={`${index}`}
             ref={register}
-            defaultValue={change[index]}
+            defaultValue={changeInCancel[index]}
           />
           <Row>
             <Col xs="2" className="mr-3">
-              <button className="btn btn-primary my-2">Save</button>
+              <button className="btn btn-primary my-2" onClick={(e) => {}}>
+                Save
+              </button>
             </Col>
             <Col xs="2">
               <button
@@ -53,10 +60,9 @@ function ListItems(props) {
                   //La funcion "handleSubmit" es invocada aqui de esta forma ya que al tener un atirbuto "onClick" dentro del boton el programa
                   //no la manda a llamar xd
                   handleSubmit(onSubmit)(index);
-                  props.tasks[index].defaulValue = change[index];
+                  //props.tasks[index].defaulValue = changeOnCancel[index];
                   //
-                  props.tasks[index].inModification = false;
-                  setmList(mList.slice(index, 0, false));
+                  changeInpotToFormCheck(index);
                 }}
               >
                 Cancel
