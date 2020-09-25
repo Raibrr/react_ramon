@@ -30,7 +30,7 @@ function ListItems(props) {
     setmList(mList.slice(index, 0, false));
   };
 
-  return props.tasks.map((task, index) => {
+  return props.tasks[0].map((task, index) => {
     //If necesario para que no se multiplique infinitamente el array cada que se itera con el 'setChangeInCancel'
     if (mList.length < 8) {
       mList.push(task.inModification);

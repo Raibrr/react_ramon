@@ -1,18 +1,17 @@
 import { Button, Navbar } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import FormNewPerfile from "./FormNewPerfil";
+import Persons from "./Persons";
 
-const NewUser = (props) => {
+const NavbarPage = (props) => {
   const [newUser, setNewUser] = useState(true);
   return (
     <Navbar bg="dark" variant="dark">
-      <Navbar.Brand href="#home">
-        <Button
-          onClick={(evento) => {
-            props.postData(evento);
-          }}
-        >
-          Create Perfil Tasks
-        </Button>
+      <Navbar.Brand href="home">
+        <Link to="/newperfil">
+          <Button>Create Perfil Tasks</Button>
+        </Link>
       </Navbar.Brand>
       <Navbar.Toggle />
       <Navbar.Collapse className="justify-content-end">
@@ -24,4 +23,4 @@ const NewUser = (props) => {
   );
 };
 
-export default NewUser;
+export default NavbarPage;
