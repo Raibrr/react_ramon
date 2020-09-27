@@ -1,9 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "bootstrap/dist/css/bootstrap.css";
-import "./index.css";
+//import "bootstrap/dist/css/bootstrap.css";
+//import "./index.css";
+//import "./components/styles.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import Test from "./components/Test";
 //import UseForm from "./components/UseForm";
 
 ReactDOM.render(<App />, document.getElementById("root"));
