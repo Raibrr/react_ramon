@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 
 import "./App.scss";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Persons from "./components/Persons";
 import axios from "axios";
 
@@ -69,7 +69,6 @@ const tasks = [
 ];
 
 const App = () => {
-  console.log(tasks[0].length);
   const [peopleData, setPeopledata] = useState({
     data: [""],
   });

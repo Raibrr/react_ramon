@@ -1,13 +1,5 @@
-import React, { useEffect, useState, useRef } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  ListGroup,
-  Card,
-  Form,
-  Button,
-} from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Row, Col, ListGroup, Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import "../App.scss";
 
@@ -15,7 +7,7 @@ function ListItems(props) {
   const [mList, setmList] = useState([]);
   const [taskTitle, setTaskTitle] = useState([]);
   const [changeInCancel, setChangeInCancel] = useState([]);
-  const { register, errors, handleSubmit, setValue } = useForm({
+  const { register, errors, handleSubmit } = useForm({
     mode: "onBlur",
   });
 

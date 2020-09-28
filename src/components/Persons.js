@@ -1,14 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import {
-  Card,
-  Button,
-  Row,
-  Col,
-  Image,
-  Container,
-  Navbar,
-} from "react-bootstrap";
+import React from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Card, Button, Row, Col, Container } from "react-bootstrap";
 import axios from "axios";
 import NavbarPage from "./NavbarPage";
 import FormNewPerfil from "./FormNewPerfil";
@@ -24,7 +16,9 @@ const Persons = (props) => {
         first_name: userName,
         email: email,
       });
-      props.tasks.push([]);
+      props.tasks.push({
+        userName: [],
+      });
       console.log(props.tasks);
       let data = responsePost.data;
       props.setPeopledata({
@@ -59,9 +53,10 @@ const Persons = (props) => {
         <ul>
           {props.peopleData.data.map((item, index) => {
             console.log(props.peopleData.data);
-            let numberOfTasks = props.tasks[index].length;
+            let numberOfTasks = props.tasks[0].user.length;
+
             return (
-              <Container>
+              <Container key={index}>
                 <Row>
                   <Col xs={5} className="mt-2">
                     <Card key={index} style={{ width: "18rem" }}>

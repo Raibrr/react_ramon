@@ -1,15 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import ListItems from "./Listitems";
-import {
-  Container,
-  Row,
-  Col,
-  ListGroup,
-  Card,
-  Form,
-  Button,
-} from "react-bootstrap";
+import { Container, Row, Col, ListGroup, Card } from "react-bootstrap";
 
 const PersonalTasks = (props) => {
   return (
