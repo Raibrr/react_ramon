@@ -13,7 +13,6 @@ const FormNewPerfile = (props) => {
   const onSubmit = (data) => {
     const emailForm = data.email;
     const userNameForm = data.userName;
-    console.log(data);
     history.push("/");
     props.postData(userNameForm, emailForm);
   };

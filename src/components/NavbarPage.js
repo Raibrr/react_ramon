@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const NavbarPage = (props) => {
   return (
-    <Navbar bg="dark" variant="dark">
+    <Navbar bg="dark" variant="dark" className="navbar-expand-lg">
       <Navbar.Brand href="home">
         <Link to="/newperfil">
           <Button>Create Perfil Tasks</Button>
