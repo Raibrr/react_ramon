@@ -1,9 +1,14 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import ListItems from "./Listitems";
-import { Container, Row, Col, ListGroup, Card } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Container, Row, Col, ListGroup, Card, Button } from "react-bootstrap";
+import TaskToDo from "./TaskToDo";
 
-const PersonalTasks = (props) => {
+const PersonalTasks = ({ tasks }) => {
+  const [addTask, setAddTask] = useState(false);
+
+  useEffect(() => {
+    setAddTask(false);
+  }, [addTask]);
+
   return (
     <Container fluid>
       <Row>
@@ -14,7 +19,31 @@ const PersonalTasks = (props) => {
             </Card.Title>
             <Card.Body>
               <ListGroup>
-                <ListItems tasks={props.tasks} />
+                {tasks.map((item, index) => {
+                  return (
+                    <TaskToDo
+                      key={index}
+                      titulo={item.title}
+                      name={item.name}
+                      inModification={item.inModification}
+                    />
+                  );
+                })}
+                {addTask ? "Ta jalando" : null}
+                <Button
+                  onClick={() => {
+                    tasks.push({
+                      checked: false,
+                      id: tasks.length,
+                      inModification: !addTask,
+                      name: `title ${tasks.length}`,
+                      title: "",
+                    });
+                    setAddTask(true);
+                  }}
+                >
+                  Add Task
+                </Button>
               </ListGroup>
             </Card.Body>
           </Card>

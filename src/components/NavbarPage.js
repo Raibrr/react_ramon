@@ -1,19 +1,17 @@
 import { Button, Navbar } from "react-bootstrap";
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
-const NavbarPage = (props) => {
+const NavbarPage = ({ emailUser }) => {
   return (
     <Navbar bg="dark" variant="dark" className="navbar-expand-lg">
-      <Navbar.Brand href="home">
-        <Link to="/newperfil">
-          <Button>Create Perfil Tasks</Button>
-        </Link>
-      </Navbar.Brand>
+      <Link id="RouterCreatePerfil" to="/newperfil">
+        <Button>Create Perfil Tasks</Button>
+      </Link>
       <Navbar.Toggle />
       <Navbar.Collapse className="justify-content-end">
         <Navbar.Text>
-          Signed in as: <a href="/">{props.emailUser}</a>
+          Signed in as: <a href="/">{emailUser}</a>
         </Navbar.Text>
       </Navbar.Collapse>
     </Navbar>
